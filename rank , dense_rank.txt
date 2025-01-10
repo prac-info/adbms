@@ -1,0 +1,33 @@
+Mysql>create database mca;
+Mysql>use mca
+
+Mysql>create table payment(
+customer_id number, 
+sales_amount number, 
+payment_mode varchar2(20),
+payment_date Date
+);
+
+
+Mysql>insert into payment values(1,60,’Cash’, '24-SEP-2020');
+insert into payment values(2,30,’Credit Card’, '27-APR-2020');
+insert into payment values(3,90,’Credit Card’, '7-JUL-2020');
+insert into payment values(4,50,’Debit Card’, '12-FEB-2020');
+insert into payment values(5,40,’Mobile Payment’, '20-NOV-2020');
+insert into payment values(6,40,’Debit Card’,'28-JUN-2021');
+insert into payment values(7,10,’Cash’,'25-AUG-2021');
+insert into payment values(8,30,’Mobile Payment’,'17-JUN-2021');
+insert into payment values(9,80,’Cash’,'25-AUG-2021');
+insert into payment values(10,50,’Mobile Payment’,'3-NOV-2021');
+insert into payment values(11,70,’Cash’,'1-NOV-2022');
+insert into payment values(12,60,’Netbanking’,'11-SEP-2022');
+insert into payment values(13,30,’Netbanking’,'10-DEC-2022');
+insert into payment values(14,50,’Credit Card’,'14-MAY-2022');
+insert into payment values(15,70,’Credit Card’,'25-SEP-2022');
+
+
+Mysql>select customer_id, sales_amount,
+ROW_NUMBER() OVER (ORDER BY customer_id) as "ROW_NUMBER",
+RANK() OVER(ORDER BY customer_id) as "RANK",
+DENSE_RANK() OVER(ORDER BY customer_id) as "DENSE_RANK"
+FROM payment;

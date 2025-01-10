@@ -1,0 +1,31 @@
+#** Dealing With Categorical Data **
+## The function factor is used to encode a vector as
+#a factor (the terms ‘category’ and ‘enumerated type’ are also used for factors).
+#If argument ordered is TRUE, the factor levels are assumed to be ordered. 
+## Factors are variables in R which take on a limited number of different values;
+#such variables are often referred to as categorical variables.
+# Create gender vector 
+gender_vector <- c("Male", "Female", "Female", "Male", "Male") 
+class(gender_vector)
+#Convert Character into Factor(categorical data) 
+factor_gender_vector <-factor(gender_vector)
+class(factor_gender_vector) 
+# Create Ordinal categorical vector
+day_vector <- c('evening', 'morning', 'afternoon','midday', 'midnight', 'evening')
+# Convert 'day_vector' to a factor with ordered level
+factor_day <- factor(day_vector, order = TRUE, levels =c('morning', 'midday', 'afternoon', 'evening', 'midnight'))
+# Print the factor_day 
+factor_day
+#--------------Convert Numeric to Factor--------------
+# Creating vectors
+age <- c(40, 49, 48, 40, 67, 52, 53) 
+salary <- c(103200, 106200, 150200, 10606, 10390,14070, 10220) 
+gender <- c("male", "male", "transgender","female", "male", "female", "transgender")
+# Creating data frame named employee 
+employee<- data.frame(age, salary, gender) 
+employee
+# Creating a factor corresponding to age with labels 
+wfact = cut(employee$age, 3, labels=c('Young', 'Medium','Aged')) 
+table(wfact) 
+wfact = cut(employee$salary, 2, labels=c('Below Lakh', 'Above Lakh')) 
+table(wfact)

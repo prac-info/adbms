@@ -1,0 +1,29 @@
+Mysql>create database mca;
+Mysql>use mca
+
+Mysql>CREATE TABLE Stores (
+cust_name VARCHAR(40),
+bill_no VARCHAR(20) NOT NULL,
+store_id INT PRIMARY KEY NOT NULL,
+bill_date DATE NOT NULL,
+amount DECIMAL(8,2) NOT NULL)
+PARTITION BY LIST(store_id) (
+PARTITION pEast VALUES IN (101, 103, 105),
+PARTITION pWest VALUES IN (102, 104, 106),
+PARTITION pNorth VALUES IN (107, 109, 111),
+PARTITION pSouth VALUES IN (108, 110, 112));
+
+Mysql> INSERT INTO Stores VALUES
+insert into Stores values(’Suresh’,’1122’,'101','2-JAN-2020', '1900');
+insert into Stores values('Suresh','4433','102','2023-10-29', '1900.00');
+insert into Stores values('Ali','1234','103','2024-08-15', '1800.00');
+insert into Stores values('Qunut','4567','105','2022-10-11', '1950.00');
+insert into Stores values('Arshnaz','8976','102','2019-11-10', '18000.00');
+insert into Stores values('Habib','1233','106','2019-12-01', '5800.00');
+insert into Stores values('Pratik','7766','108','2020-07-2', '6548.50');
+insert into Stores values('Neha','4213','101','2022-04-6', '19874.00');
+
+Mysql>SELECT * FROM Stores;
+Mysql> SELECT PARTITION_NAME, TABLE_ROWS FROM
+INFORMATION_SCHEMA.PARTITIONS WHERE
+TABLE_NAME='Stores';

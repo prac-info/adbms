@@ -1,0 +1,15 @@
+Mysql>create database mca;
+Mysql>use mca
+
+Mysql>CREATE TABLE Customer_reltab ( CustNo NUMBER NOT NULL, CustName VARCHAR2(200) NOT 
+NULL, Street VARCHAR2(200) NOT NULL, City VARCHAR2(200) NOT NULL, State CHAR(2) NOT NULL, 
+Zip VARCHAR2(20) NOT NULL, Phone1 VARCHAR2(20), Phone2 VARCHAR2(20), Phone3 
+VARCHAR2(20), PRIMARY KEY (CustNo));
+
+Mysql>desc customer_reltab;
+
+Mysql>INSERT INTO Customer_reltab VALUES (1, 'Jean Nance', '2 Avocet Drive', 'Redwood Shores', 'CA', 
+'95054', '415-555-1212', NULL, NULL);
+
+Mysql>INSERT INTO Customer_reltab VALUES (2, 'John Nike', '323 College Drive', 'Edison', 'NJ', '08820', '609-
+555-1212', '201-555-1212', NULL);

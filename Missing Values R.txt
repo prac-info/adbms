@@ -1,0 +1,37 @@
+#NA : Not Available - Known as missing values
+#Works as a place holder for something that is ‘missing’
+#Most basic operations(addition, subtraction, multiplication, etc.) 
+#in R deal with it without crashing and return NA if one of the inputs is NA 
+#is.na(VALUE) is used to check if the input value is NA or not.
+#Returns a TRUE/FALSE vector Whereas in case of Excel like utilities for numeric computations it’s assumed to be 0
+# Operation with NA
+NA+4
+# Create a vector V with 1 NA value
+V <- c(1,2,NA,3)
+V
+# Median with NA 
+median(V)
+# median without NA (remove NA) 
+median(V, na.rm = T) 
+# Apply is.na() to vector 
+is.na(V)
+# Removing the NA values by using logical indexing 
+naVals <- is.na(V)
+# Get values that are not NA
+V[!naVals]
+# Replace NA values with 0
+V[is.na(V)] <- 0 
+print(V)
+#The process of estimating or deriving missing values There are various methods for imputation
+#–Imputation of the mean
+#–Imputation of the median
+#–Imputation using linear regression models
+#Package Hmisc implments many imputation methods, few examples (Download package Hmisc)
+install.packages("Hmisc") 
+library(Hmisc) 
+## create a vector 
+x = c(1,2,3,NA,4,4,NA)
+x
+# mean imputation - from package, mention name of function to be used 
+x <- impute(x, fun = mean) 
+x
