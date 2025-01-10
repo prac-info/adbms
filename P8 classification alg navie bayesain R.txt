@@ -1,0 +1,39 @@
+install.package("e1071")
+library(e1071) 
+# Sample data data 
+<- data.frame
+( age = c(25, 30, 45, 35, 50, 23, 37, 61, 22, 42), 
+income= c('high', 'high', 'medium', 'low', 'low', 'medium', 'medium', 'high', 'low',
+'medium'), 
+student = c('no', 'no', 'no', 'yes', 'no', 'yes', 'yes', 'no', 'yes', 'yes'), 
+credit_rating = c('fair','excellent', 'fair', 'fair', 'excellent', 'excellent', 'fair',
+'fair', 'excellent', 'fair'), 
+buys_computer = c('no', 'no', 'yes', 'yes', 'yes', 'no', 'yes', 'no', 'yes', 'yes')
+)
+head(data) 
+str(data)
+# Convert categorical variables to factors 
+data$income <- as.factor(data$income) 
+data$student <-as.factor(data$student) 
+data$credit_rating <- as.factor(data$credit_rating) 
+data$buys_computer <-as.factor(data$buys_computer) 
+str(data)
+#Split the Data into Training and Testing Sets 
+set.seed(123) # For reproducibility 
+train_index <-sample(1:nrow(data), 0.7 * nrow(data)) 
+train_data <- data[train_index, ] 
+test_data <- data[-train_index, ]
+test_data
+#Train the Naive Bayes Model 
+model <- naiveBayes(buys_computer ~ ., data = train_data) 
+print(model)
+#Make Predictions
+#Use the trained model to make predictions on the test data. 
+predictions <- predict(model, test_data)
+print(predictions) 
+# Confusion matrix 
+confusion_matrix <- table(predictions, test_data$buys_computer)
+print(confusion_matrix) 
+# Calculate accuracy 
+accuracy <- sum(diag(confusion_matrix)) /sum(confusion_matrix) 
+print(paste("Accuracy:", round(accuracy, 2)))
