@@ -1,0 +1,38 @@
+library(xlsx)
+# SedanCar. xlsx
+df=read.xlsx(file.choose(),1,header = T) 
+View(df)
+df=df[,!apply(is.na(df),2,all)] 
+View(df)
+str(df)
+df$Ownership<-as.factor(df$Ownership)
+str(df) 
+head(df) 
+plot(df$Annual.Income,df$Household.Area, las=1, 
+xlab="Annual Income (a.'lakhs)", ylab ="Household Area 00s ft2", 
+xlim = c(2,12), ylim = c(13,25), pch=c(21,19)[as.numeric(df$Ownership)])
+# i=as.numeric(df$Ownership) 
+legend("bottomright", inset = 0.005, c("non-owner","owner"), pch = c(21,19),cex=0.7, x.intersp=0.5, y.intersp=0.5)
+#New Observation
+#Annual_Income=6 lpa, Household Area=20 
+points(6,20, type="p",pch=4)
+#Normalization 
+dfb=df
+str(dfb) 
+df[,1:2]=scale(df[,1:2],center = T,scale = T) 
+head(df)
+#Partitioning- training(15) testing(5) 
+partidx=sample(1:nrow(df),15, replace = F) 
+partidx[1:15] #displaying the observations that has been selected in sampling process dftrain=df[partidx,] 
+dftest=df[-partidx,]
+View(dftest) #view test data sample
+View(dftrain) #view training data sample
+#Modeling
+library(class) 
+# building 4NN 
+mod=knn(train = dftrain[,1:2], test = dftest[,1:2], cl =dftrain$Ownership, k=4 )
+summary(mod)
+#Classification Matrix 
+table("Actual Value"=mod, "Predicted Value"=dftest$Ownership)
+#Misclassification Error 
+mean(mod!=dftest$Ownership)

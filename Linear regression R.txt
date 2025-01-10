@@ -1,0 +1,37 @@
+#Set working Dir
+ setwd("C:/Users/LENOVO/Documents") 
+setwd("~/R Studio Practical 5") 
+#Reading the data from bonds.txt 
+bonds<-read.delim("bonds.txt", row.names = 1)
+#Display the content of bonds
+View(bonds)
+#Displaying some initial records 
+head(bonds)
+#Displaying some last records 
+tail(bonds)
+#Displaying Structure of the data 
+str(bonds)
+#Looking at the Data Summary 
+summary(bonds)
+#plotting the observations
+ plot(bonds$CouponRate,bonds$BidPrice, 
+main = "Bid Price Vs Coupon Rate",
+xlab="Coupon Rate",
+ ylab="Bid Price")
+ #Model the linear Regression
+ bondsmod<-lm(bonds$BidPrice~bonds$CouponRate)
+ # Fitting the data through straight line 
+abline(bondsmod)
+#Looking at the data summary 
+summary(bondsmod)
+alpha=0.05 
+n=35 
+p=1 
+qt(p=1-(alpha/2),df=n-p-1)
+#Calculating F-Statistics
+SSE<-sum((bonds$BidPrice-bondsmod$fitted.values)^2)
+SSE
+SSR<-sum((bondsmod$fitted.values-mean(bonds$BidPrice))^2)
+ SSR 
+n=35
+(SSR/SSE)*(n-2)
